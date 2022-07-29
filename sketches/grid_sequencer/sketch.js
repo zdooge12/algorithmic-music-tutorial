@@ -1,13 +1,17 @@
 var sloop;
-var bpm = 140; // 140 beats per minute
+var bpm = 128; // 128 beats per minute
 
+var measures = 1
 var numTimeSteps = 16;
+
+var time = numTimeSteps/measures; //the iterations per beat
 var timeStepCounter = 0;
 var pitches = [57,60,62,64,67,69,72,74,76,79,81,84]; // A minor pentatonic scale
 
 var cells = [];
 var cellWidth, cellHeight;
 var controlPanelHeight;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -32,7 +36,7 @@ function setup() {
   synth = new p5.PolySynth();
   
   // Create SoundLoop with 8th-note-long loop interval
-  sloop = new p5.SoundLoop(soundLoop, "8n");
+  sloop = new p5.SoundLoop(soundLoop, time+"n");
   sloop.bpm = bpm;
   
   // UI
@@ -41,9 +45,10 @@ function setup() {
   playPauseButton.position(0, 0);
   playPauseButton.size(width/4, controlPanelHeight);
 
-  tempoSlider = createSlider(30, 300, bpm);
+  tempoSlider = createSlider(75, 150, bpm, 1);
   tempoSlider.position(width/4, 0);
   tempoSlider.size(width/4, controlPanelHeight);
+  // tempoSlider.
   tempoText = createP("BPM: " + bpm);
   tempoText.position(width/2, 0);
   tempoText.size(width/4, controlPanelHeight);
@@ -64,6 +69,7 @@ function soundLoop(cycleStartTime) {
         var quaverSeconds = this._convertNotation('8n'); // 8th note = quaver duration
         var freq = midiToFreq(cells[i].pitch);
         synth.play(freq, velocity, cycleStartTime, quaverSeconds);
+        // synth.ADSR(freq, 0, 0.1, 0.5);
       }
     } else {
       cells[i].active = false;

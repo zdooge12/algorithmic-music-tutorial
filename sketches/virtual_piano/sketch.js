@@ -1,6 +1,6 @@
 var polySynth;
 var velocity = 0.7; // From 0-1
-var baseNote = 72;
+var baseNote = 77;
 var keyOrder = "ASDFGHJKL";
 var keyStates = [0,0,0,0,0,0,0,0,0];
 

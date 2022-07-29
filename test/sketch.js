@@ -3,7 +3,7 @@ var sloop;
 var freq = 1000;
 var velocity = 0.7;
 var lastX, lastY;
-var numNotes = 132;
+var numNotes = 128;
 var freq;
 var activeNote = -1;
 
@@ -53,7 +53,7 @@ function touchStarted() {
   var octave = floor(mouseY / noteHeight);
   var midiNoteNumber = pitchClass + octave * 12;
   activeNote = midiNoteNumber;
-  if (midiNoteNumber < numNotes) {
+  if (midiNoteNumber < 128) {
     freq = midiToFreq(midiNoteNumber);
     // Play synth
     synth.noteAttack(freq, 0.7, 0);
